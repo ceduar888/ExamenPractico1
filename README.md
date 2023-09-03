@@ -1,2 +1,3 @@
 # ExamenPractico1
-2 ejercicios del primer examen practico de C#
+Contiene los 2 ejercicios del primer examen practico de C#
+Clave 1
