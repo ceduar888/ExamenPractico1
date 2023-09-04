@@ -1,0 +1,304 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace examenPractico1
+{
+    class Program
+    {
+        //Declarando variables de clase para el ejercio 2, gestion de biblioteca
+        static int numLibros = 0;
+        static string[] codigoLibros = new string[100];
+        static string[] tituloLibros = new string[100];
+        static string[] isbnLibros = new string[100];
+        static string[] edicionLibros = new string[100];
+        static string[] autorLibros = new string[100];
+
+        //MENU PRINCIPAL DE TODO EL PROGRAMA
+        static void Main(string[] args)
+        {
+            //declarando la bandera para el while 
+            bool bandera = true;
+            
+            //MENU PRINCIPAL
+            while (bandera)
+            {
+                Console.WriteLine("\n***************MENU PRINCIPAL****************");
+                Console.WriteLine("       Bienvenido al Examen Practico 1         ");
+                Console.WriteLine(" [1] Llamadas Internacionales");
+                Console.WriteLine(" [2] Gestion de Biblioteca");
+                Console.WriteLine(" [0] Salir del Sistema");
+                Console.WriteLine("***********************************************");
+
+                Console.WriteLine("¿Cual ejercicio desea revisar profesor Jandres? ");
+
+                int opcion;
+                if (int.TryParse(Console.ReadLine(), out opcion))
+                {
+                    //Switch del menu principal
+                    switch (opcion)
+                    {
+                        case 1:
+                            costoLlamada();
+                            break;
+                        case 2:
+                            gestionBiblioteca();
+                            break;
+                        case 0:
+                            bandera = false;
+                            Console.WriteLine("Saliendo del sistema principal...");
+                            Console.WriteLine("Pongame 10 profe jaja... Gracias");
+                            break;
+                        default:
+                            Console.WriteLine("¡Opcion no valida!");
+                            break;
+                    }
+                    Console.ReadKey();
+                }
+
+
+            }
+
+        }
+
+        //EJERCICIO 1: COSTO DE LLAMADAS INTERNACIONALES
+        static void costoLlamada()
+        {
+            //Definiendo Variables a utilizar
+            bool bandera = true;
+            double minutos, costoLlamada;
+            int clave;
+
+            //ciclo while
+            while (bandera)
+            {
+                //MENU
+                Console.WriteLine("\n\nCALCULE EL COSTO DE SU LLAMADA INTERNACIONAL");
+                Console.WriteLine("-------------Costo Segun Zona---------------");
+                Console.WriteLine("CLAVE  ZONA GEOGRAFICA    PRECIO");
+                Console.WriteLine("[12]   America del Norte  $2.00");
+                Console.WriteLine("[15]   America Central    $2.20");
+                Console.WriteLine("[18]   America del Norte  $4.50");
+                Console.WriteLine("[19]   Europa             $3.50");
+                Console.WriteLine("[23]   Asia               $6.00");
+                Console.WriteLine("[0]    Ir a Menu Principal");
+                Console.WriteLine("--------------------------------------------");
+
+                //Solicitud de data al usuario
+                Console.WriteLine("Digite la Clave de la Zona Geografica: ");
+                clave = int.Parse(Console.ReadLine());
+
+                //Swicth para calcular el costo
+                switch (clave)
+                {
+                    case 12:
+                        Console.WriteLine("Digite los minutos: ");
+                        minutos = double.Parse(Console.ReadLine());
+
+                        costoLlamada = minutos * 2;
+                        Console.WriteLine($"\nEl costo de su llamada hacia America del Norte es de: ${costoLlamada}\n");
+                        break;
+                    case 15:
+                        Console.WriteLine("Digite los minutos: ");
+                        minutos = double.Parse(Console.ReadLine());
+
+                        costoLlamada = minutos * 2.2;
+                        Console.WriteLine($"El costo de su llamada hacia America Central es de: ${costoLlamada}");
+                        break;
+                    case 18:
+                        Console.WriteLine("Digite los minutos: ");
+                        minutos = double.Parse(Console.ReadLine());
+
+                        costoLlamada = minutos * 4.50;
+                        Console.WriteLine($"El costo de su llamada hacia America del Norte es de: ${costoLlamada}");
+                        break;
+                    case 19:
+                        Console.WriteLine("Digite los minutos: ");
+                        minutos = double.Parse(Console.ReadLine());
+
+                        costoLlamada = minutos * 3.50;
+                        Console.WriteLine($"El costo de su llamada hacia Europa es de: ${costoLlamada}");
+                        break;
+                    case 23:
+                        Console.WriteLine("Digite los minutos: ");
+                        minutos = double.Parse(Console.ReadLine());
+
+                        costoLlamada = minutos * 6;
+                        Console.WriteLine($"El costo de su llamada hacia Asia es de: ${costoLlamada}");
+                        break;
+                    case 0:
+                        Console.WriteLine("Saliendo del sistema de llamadas...");
+                        Console.WriteLine("Presione ENTER para ir a MENU PRINCIPAL");
+                        bandera = false;
+                        break;
+                    default:
+                        Console.WriteLine("Opcion no valida");
+                        break;
+                }
+            }
+        }
+
+        //EJERCIO 2: GESTION DE LIBROS DE UNA BIBLIOTECA
+        static void gestionBiblioteca()
+        {
+            //Declaracion de bandera
+            bool bandera = true;
+            
+
+            //ciclo while
+            while (bandera)
+            {
+                //Menu de gestion de biblioteca
+                Console.WriteLine("\nGESTION DE LIBROS DE BIBLIOTECA 'LA PODEROSA'");
+                Console.WriteLine("-------------------Menu------------------------");
+                Console.WriteLine("[1] Agregar Libro");
+                Console.WriteLine("[2] Mostrar listado de Libros");
+                Console.WriteLine("[3] Buscar Libro por Codigo");
+                Console.WriteLine("[4] Editar Libro");
+                Console.WriteLine("[0] Ir a Menu Principal");
+
+                int opcion = int.Parse(Console.ReadLine());
+
+                switch (opcion)
+                {
+                    case 1:
+                        agregarLibro();
+                        break;
+                    case 2:
+                        mostrarLibro();
+                        break;
+                    case 3:
+                        buscarLibro();
+                        break;
+                    case 4:
+                        editarLibro();
+                        break;
+                    case 0:
+                        Console.WriteLine("Saliendo del sistema de gestion de libros...");
+                        Console.WriteLine("Presione ENTER para ir a MENU PRINCIPAL");
+                        bandera = false;
+                        break;
+                    default:
+                        Console.WriteLine("Opcion no valida");
+                        break;
+                }
+
+            }
+        }
+
+        //FUNCIONES DE GESTION DE LIBROS DE UNA BIBLIOTECA
+        static void agregarLibro()
+        {
+            Console.WriteLine("\n-----------Agrega un libro----------");
+
+            Console.WriteLine("Digita el codigo del libro: ");
+            codigoLibros[numLibros] = Console.ReadLine();
+
+            Console.WriteLine("Digita el titulo del libro: ");
+            tituloLibros[numLibros] = Console.ReadLine();
+
+            Console.WriteLine("Digita el ISBN del libro: ");
+            isbnLibros[numLibros] = Console.ReadLine();
+
+            Console.WriteLine("Digita la edicion del libro: ");
+            edicionLibros[numLibros] = Console.ReadLine();
+
+            Console.WriteLine("Digita el autor del libro: ");
+            autorLibros[numLibros] = Console.ReadLine();
+
+            numLibros++;
+            Console.WriteLine("***Libro agregado exitosamente...");
+
+        }
+
+        static void mostrarLibro()
+        {
+            Console.WriteLine("\n-------------------Listado de Libros---------------------- ");
+            Console.WriteLine("CODIGO\t\tTITULO\t\tISBN\t\tEDICION\t\tAUTOR");
+
+            for (int i = 0; i < numLibros; i++)
+            {
+                Console.WriteLine($"{codigoLibros[i]}\t\t{tituloLibros[i]}\t\t{isbnLibros[i]}\t\t{edicionLibros[i]}\t\t{autorLibros[i]}");
+            }
+            
+        }
+
+        static void buscarLibro()
+        {
+            Console.Write("\nIngresa el código del libro a buscar: ");
+            string codigoBuscado = Console.ReadLine();
+
+            int indiceLibroEncontrado = -1;
+
+            for (int i = 0; i < numLibros; i++)
+            {
+                if (codigoLibros[i] == codigoBuscado)
+                {
+                    indiceLibroEncontrado = i;
+                    break;
+                }
+            }
+
+            if (indiceLibroEncontrado != -1)
+            {
+                Console.WriteLine("\n\n------------------------¡Libro encontrado!---------------------------");
+                Console.WriteLine("CODIGO\t\tTITULO\t\tISBN\t\tEDICION\t\tAUTOR");
+                Console.WriteLine($"{codigoLibros[indiceLibroEncontrado]}\t\t{tituloLibros[indiceLibroEncontrado]}\t\t{isbnLibros[indiceLibroEncontrado]}\t\t{edicionLibros[indiceLibroEncontrado]}\t\t{autorLibros[indiceLibroEncontrado]}");
+                Console.WriteLine("\n\n---------------------------------------------------------------------\n");
+            }
+            else
+            {
+                Console.WriteLine("Libro no encontrado intenta de nuevo crack.");
+            }
+        }
+
+        static void editarLibro()
+        {
+            Console.Write("Ingresa el código del libro a editar: ");
+            string codigoBuscado = Console.ReadLine();
+
+            int indiceLibroEncontrado = -1;
+
+            for (int i = 0; i < numLibros; i++)
+            {
+                if (codigoLibros[i] == codigoBuscado)
+                {
+                    indiceLibroEncontrado = i;
+                    break;
+                }
+            }
+
+            if (indiceLibroEncontrado != -1)
+            {
+                Console.WriteLine("\n\n------------------------¡Libro encontrado!---------------------------");
+                Console.WriteLine("CODIGO\t\tTITULO\t\tISBN\t\tEDICION\t\tAUTOR");
+                Console.WriteLine($"{codigoLibros[indiceLibroEncontrado]}\t\t{tituloLibros[indiceLibroEncontrado]}\t\t{isbnLibros[indiceLibroEncontrado]}\t\t{edicionLibros[indiceLibroEncontrado]}\t\t{autorLibros[indiceLibroEncontrado]}");
+                Console.WriteLine("\n\n---------------------------------------------------------------------\n");
+
+                Console.WriteLine("\nIngresa los nuevos datos del libro");
+
+                Console.Write("\nTítulo: ");
+                tituloLibros[indiceLibroEncontrado] = Console.ReadLine();
+
+                Console.Write("\nISBN: ");
+                isbnLibros[indiceLibroEncontrado] = Console.ReadLine();
+
+                Console.Write("\nEdicion: ");
+                edicionLibros[indiceLibroEncontrado] = (Console.ReadLine());
+
+                Console.Write("\nAutor: ");
+                autorLibros[indiceLibroEncontrado] = (Console.ReadLine());
+
+                Console.WriteLine("***Libro editado exitosamente....");
+            }
+            else
+            {
+                Console.WriteLine("Libro no encontrado.");
+            }
+        }
+
+
+    }
+}
